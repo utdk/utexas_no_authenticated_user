@@ -1,0 +1,13 @@
+{
+  "name": "utexas/utexas_no_authenticated_user",
+  "type": "drupal-custom-module",
+  "description": "Automatically log out and delete any user account that only has the 'authenticated' user role.",
+  "keywords": ["Drupal"],
+  "license": ["GPL-2.0-or-later"],
+  "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_no_authenticated_user",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.austin.utexas.edu/eis1-wcs/utexas_no_authenticated_user/issues",
+    "source": "https://github.austin.utexas.edu/eis1-wcs/utexas_no_authenticated_user"
+  }
+}
