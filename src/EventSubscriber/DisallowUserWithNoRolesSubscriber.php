@@ -75,7 +75,6 @@ class DisallowUserWithNoRolesSubscriber implements EventSubscriberInterface {
       $this->loggerFactory->notice('The account with username @username was automatically deleted since the account had no roles.', [
         '@username' => $this->account->getAccountName(),
       ]);
-      user_logout();
       \Drupal::entityTypeManager()->getStorage('user')->load($uid)->delete();
       $response = new RedirectResponse('/system/403', RedirectResponse::HTTP_FOUND);
       $event->setResponse($response);
