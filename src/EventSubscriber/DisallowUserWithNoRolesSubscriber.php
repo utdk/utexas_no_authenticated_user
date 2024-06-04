@@ -2,13 +2,13 @@
 
 namespace Drupal\utexas_no_authenticated_user\EventSubscriber;
 
-use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Event subscriber subscribing to KernelEvents::REQUEST.
@@ -75,6 +75,10 @@ class DisallowUserWithNoRolesSubscriber implements EventSubscriberInterface {
       $this->loggerFactory->notice('The account with username @username was automatically deleted since the account had no roles.', [
         '@username' => $this->account->getAccountName(),
       ]);
+      // Dependency injection is more complicated code than static calls
+      // and therefore has a negative Developer Experience (DX) for our team.
+      // We mark these PHPCS standards as ignored.
+      // phpcs:ignore
       \Drupal::entityTypeManager()->getStorage('user')->load($uid)->delete();
       $response = new RedirectResponse('/system/403', RedirectResponse::HTTP_FOUND);
       $event->setResponse($response);
@@ -84,7 +88,7 @@ class DisallowUserWithNoRolesSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     $events[KernelEvents::REQUEST][] = ['checkAuthStatus'];
     return $events;
   }
