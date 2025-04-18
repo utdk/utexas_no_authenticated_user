@@ -1,6 +1,6 @@
 services:
   utexas_no_authenticated_user_event_subscriber:
     class: Drupal\utexas_no_authenticated_user\EventSubscriber\DisallowUserWithNoRolesSubscriber
-    arguments: ['@current_user', '@logger.factory', '@current_route_match']
+    arguments: ['@current_user', '@logger.factory', '@current_route_match', '@module_handler', '@entity_type.manager',]
     tags:
       - {name: event_subscriber}
